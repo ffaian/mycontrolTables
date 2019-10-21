@@ -1,0 +1,347 @@
+{
+  "definitions": {
+    "Bases": {
+      "kind": "entity",
+      "@cds.persistence.name": "BASES",
+      "elements": {
+        "ID": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "CatalogService": {
+      "kind": "service",
+      "@source": "srv/catalog-service.cds"
+    },
+    "CatalogService.Holiday_MD": {
+      "kind": "entity",
+      "@cds.persistence.name": "CATALOGSERVICE_HOLIDAY_MD",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "mycontrolTables.Holiday_MD"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Holiday_Id": {
+          "@Common.Label": "{i18n>Holiday_id}",
+          "@cds.persistence.name": "HOLIDAY_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "zName": {
+          "@Common.Label": "{i18n>Holiday_nm}",
+          "@cds.persistence.name": "ZNAME",
+          "type": "cds.String",
+          "length": 60
+        },
+        "inhabitants": {
+          "@cds.persistence.name": "INHABITANTS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Holidays",
+          "on": [
+            {
+              "ref": [
+                "inhabitants",
+                "Holiday_Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "Holiday_Id"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "CatalogService.Holidays": {
+      "kind": "entity",
+      "@cds.persistence.name": "CATALOGSERVICE_HOLIDAYS",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "mycontrolTables.Holidays"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "zDate": {
+          "@Common.Label": "{Holiday_date}",
+          "@cds.persistence.name": "ZDATE",
+          "key": true,
+          "type": "cds.DateTime"
+        },
+        "Province_Id": {
+          "@Common.Label": "{i18n>Province_id}",
+          "@cds.persistence.name": "PROVINCE_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "Holiday_Id": {
+          "@Common.Label": "{i18n>Holiday_id}",
+          "@cds.persistence.name": "HOLIDAY_ID",
+          "type": "cds.String",
+          "length": 2
+        },
+        "Holiday1": {
+          "@cds.persistence.name": "HOLIDAY1",
+          "type": "cds.Association",
+          "target": "CatalogService.Holiday_MD",
+          "keys": [
+            {
+              "ref": [
+                "Holiday_Id"
+              ],
+              "$generatedFieldName": "Holiday1_Holiday_Id"
+            }
+          ]
+        },
+        "Province1": {
+          "@cds.persistence.name": "PROVINCE1",
+          "type": "cds.Association",
+          "target": "CatalogService.Province_MD",
+          "keys": [
+            {
+              "ref": [
+                "Province_id"
+              ],
+              "$generatedFieldName": "Province1_Province_id"
+            }
+          ]
+        },
+        "Holiday1_Holiday_Id": {
+          "@cds.persistence.name": "HOLIDAY1_HOLIDAY_ID",
+          "@odata.foreignKey4": "Holiday1",
+          "type": "cds.String",
+          "length": 2
+        },
+        "Province1_Province_id": {
+          "@cds.persistence.name": "PROVINCE1_PROVINCE_ID",
+          "@odata.foreignKey4": "Province1",
+          "type": "cds.String",
+          "length": 2
+        }
+      },
+      "$syntax": "projection"
+    },
+    "CatalogService.Province_MD": {
+      "kind": "entity",
+      "@cds.persistence.name": "CATALOGSERVICE_PROVINCE_MD",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "mycontrolTables.Province_MD"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "Province_id": {
+          "@Common.Label": "{i18n>Province_id}",
+          "@cds.persistence.name": "PROVINCE_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "zName": {
+          "@Common.Label": "{i18n>Province_nm}",
+          "@cds.persistence.name": "ZNAME",
+          "type": "cds.String",
+          "length": 60
+        },
+        "inhabitants": {
+          "@cds.persistence.name": "INHABITANTS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Holidays",
+          "on": [
+            {
+              "ref": [
+                "inhabitants",
+                "Province_Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "Province_id"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "mycontrolTables.Holiday_MD": {
+      "kind": "entity",
+      "@cds.persistence.name": "MYCONTROLTABLES_HOLIDAY_MD",
+      "elements": {
+        "Holiday_Id": {
+          "@Common.Label": "{i18n>Holiday_id}",
+          "@cds.persistence.name": "HOLIDAY_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "zName": {
+          "@Common.Label": "{i18n>Holiday_nm}",
+          "@cds.persistence.name": "ZNAME",
+          "type": "cds.String",
+          "length": 60
+        },
+        "inhabitants": {
+          "@cds.persistence.name": "INHABITANTS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "mycontrolTables.Holidays",
+          "on": [
+            {
+              "ref": [
+                "inhabitants",
+                "Holiday_Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "Holiday_Id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "mycontrolTables.Holidays": {
+      "kind": "entity",
+      "@cds.persistence.name": "MYCONTROLTABLES_HOLIDAYS",
+      "elements": {
+        "zDate": {
+          "@Common.Label": "{Holiday_date}",
+          "@cds.persistence.name": "ZDATE",
+          "key": true,
+          "type": "cds.DateTime"
+        },
+        "Province_Id": {
+          "@Common.Label": "{i18n>Province_id}",
+          "@cds.persistence.name": "PROVINCE_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "Holiday_Id": {
+          "@Common.Label": "{i18n>Holiday_id}",
+          "@cds.persistence.name": "HOLIDAY_ID",
+          "type": "cds.String",
+          "length": 2
+        },
+        "Holiday1": {
+          "@cds.persistence.name": "HOLIDAY1",
+          "type": "cds.Association",
+          "target": "mycontrolTables.Holiday_MD",
+          "keys": [
+            {
+              "ref": [
+                "Holiday_Id"
+              ],
+              "$generatedFieldName": "Holiday1_Holiday_Id"
+            }
+          ]
+        },
+        "Province1": {
+          "@cds.persistence.name": "PROVINCE1",
+          "type": "cds.Association",
+          "target": "mycontrolTables.Province_MD",
+          "keys": [
+            {
+              "ref": [
+                "Province_id"
+              ],
+              "$generatedFieldName": "Province1_Province_id"
+            }
+          ]
+        },
+        "Holiday1_Holiday_Id": {
+          "@cds.persistence.name": "HOLIDAY1_HOLIDAY_ID",
+          "@odata.foreignKey4": "Holiday1",
+          "type": "cds.String",
+          "length": 2
+        },
+        "Province1_Province_id": {
+          "@cds.persistence.name": "PROVINCE1_PROVINCE_ID",
+          "@odata.foreignKey4": "Province1",
+          "type": "cds.String",
+          "length": 2
+        }
+      }
+    },
+    "mycontrolTables.Province_MD": {
+      "kind": "entity",
+      "@cds.persistence.name": "MYCONTROLTABLES_PROVINCE_MD",
+      "elements": {
+        "Province_id": {
+          "@Common.Label": "{i18n>Province_id}",
+          "@cds.persistence.name": "PROVINCE_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "zName": {
+          "@Common.Label": "{i18n>Province_nm}",
+          "@cds.persistence.name": "ZNAME",
+          "type": "cds.String",
+          "length": 60
+        },
+        "inhabitants": {
+          "@cds.persistence.name": "INHABITANTS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "mycontrolTables.Holidays",
+          "on": [
+            {
+              "ref": [
+                "inhabitants",
+                "Province_Id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "Province_id"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "version": {
+    "csn": "1.0"
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.19.2"
+  },
+  "$version": "1.0",
+  "@sql_mapping": "plain"
+}

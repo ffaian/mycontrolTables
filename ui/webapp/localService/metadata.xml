@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="CatalogService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="Holiday_MD" EntityType="CatalogService.Holiday_MD"/>
+				<EntitySet Name="Holidays" EntityType="CatalogService.Holidays"/>
+				<EntitySet Name="Province_MD" EntityType="CatalogService.Province_MD"/>
+				<AssociationSet Name="Holiday_MD_inhabitants" Association="CatalogService.Holiday_MD_inhabitants">
+					<End Role="Holiday_MD" EntitySet="Holiday_MD"/>
+					<End Role="Holidays" EntitySet="Holidays"/>
+				</AssociationSet>
+				<AssociationSet Name="Holidays_Holiday1" Association="CatalogService.Holidays_Holiday1">
+					<End Role="Holidays" EntitySet="Holidays"/>
+					<End Role="Holiday_MD" EntitySet="Holiday_MD"/>
+				</AssociationSet>
+				<AssociationSet Name="Holidays_Province1" Association="CatalogService.Holidays_Province1">
+					<End Role="Holidays" EntitySet="Holidays"/>
+					<End Role="Province_MD" EntitySet="Province_MD"/>
+				</AssociationSet>
+				<AssociationSet Name="Province_MD_inhabitants" Association="CatalogService.Province_MD_inhabitants">
+					<End Role="Province_MD" EntitySet="Province_MD"/>
+					<End Role="Holidays" EntitySet="Holidays"/>
+				</AssociationSet>
+			</EntityContainer>
+			<EntityType Name="Holiday_MD">
+				<Key>
+					<PropertyRef Name="Holiday_Id"/>
+				</Key>
+				<Property Name="Holiday_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+				<Property Name="zName" Type="Edm.String" MaxLength="60"/>
+				<NavigationProperty Name="inhabitants" Relationship="CatalogService.Holiday_MD_inhabitants" FromRole="Holiday_MD" ToRole="Holidays"/>
+			</EntityType>
+			<EntityType Name="Holidays">
+				<Key>
+					<PropertyRef Name="zDate"/>
+					<PropertyRef Name="Province_Id"/>
+				</Key>
+				<Property Name="zDate" Type="Edm.DateTimeOffset" Nullable="false"/>
+				<Property Name="Province_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+				<Property Name="Holiday_Id" Type="Edm.String" MaxLength="2"/>
+				<NavigationProperty Name="Holiday1" Relationship="CatalogService.Holidays_Holiday1" FromRole="Holidays" ToRole="Holiday_MD"/>
+				<NavigationProperty Name="Province1" Relationship="CatalogService.Holidays_Province1" FromRole="Holidays" ToRole="Province_MD"/>
+				<Property Name="Holiday1_Holiday_Id" Type="Edm.String" MaxLength="2"/>
+				<Property Name="Province1_Province_id" Type="Edm.String" MaxLength="2"/>
+			</EntityType>
+			<EntityType Name="Province_MD">
+				<Key>
+					<PropertyRef Name="Province_id"/>
+				</Key>
+				<Property Name="Province_id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+				<Property Name="zName" Type="Edm.String" MaxLength="60"/>
+				<NavigationProperty Name="inhabitants" Relationship="CatalogService.Province_MD_inhabitants" FromRole="Province_MD" ToRole="Holidays"/>
+			</EntityType>
+			<Association Name="Holiday_MD_inhabitants">
+				<End Role="Holiday_MD" Type="CatalogService.Holiday_MD" Multiplicity="*"/>
+				<End Role="Holidays" Type="CatalogService.Holidays" Multiplicity="*"/>
+			</Association>
+			<Association Name="Holidays_Holiday1">
+				<End Role="Holidays" Type="CatalogService.Holidays" Multiplicity="*"/>
+				<End Role="Holiday_MD" Type="CatalogService.Holiday_MD" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Holiday_MD">
+						<PropertyRef Name="Holiday_Id"/>
+					</Principal>
+					<Dependent Role="Holidays">
+						<PropertyRef Name="Holiday1_Holiday_Id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Holidays_Province1">
+				<End Role="Holidays" Type="CatalogService.Holidays" Multiplicity="*"/>
+				<End Role="Province_MD" Type="CatalogService.Province_MD" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Province_MD">
+						<PropertyRef Name="Province_id"/>
+					</Principal>
+					<Dependent Role="Holidays">
+						<PropertyRef Name="Province1_Province_id"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Province_MD_inhabitants">
+				<End Role="Province_MD" Type="CatalogService.Province_MD" Multiplicity="*"/>
+				<End Role="Holidays" Type="CatalogService.Holidays" Multiplicity="*"/>
+			</Association>
+			<Annotations Target="CatalogService.Holiday_MD/Holiday_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Holiday_id}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Holiday_MD/zName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Holiday_nm}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Holidays/zDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{Holiday_date}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Holidays/Province_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Province_id}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Holidays/Holiday_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Holiday_id}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Province_MD/Province_id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Province_id}"/>
+			</Annotations>
+			<Annotations Target="CatalogService.Province_MD/zName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.Label" String="{i18n>Province_nm}"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,63 @@
+{
+"format_version": 1,
+"imports": [{
+  "target_table": "MYCONTROLTABLES_PROVINCE_MD",
+  "source_data": {
+    "data_type": "CSV",
+    "file_name": "Province_MD.csv",
+    "has_header": false,
+    "dialect": "HANA",
+    "type_config": {
+      "delimiter": ","
+    }
+  },
+  "import_settings": {
+    "import_columns": ["PROVINCE_ID",
+    "ZNAME"]
+  },
+  "column_mappings": {
+    "PROVINCE_ID": 1,
+    "ZNAME": 2
+  }
+},
+{
+  "target_table": "MYCONTROLTABLES_HOLIDAY_MD",
+  "source_data": {
+    "data_type": "CSV",
+    "file_name": "Holiday_MD.csv",
+    "has_header": false,
+    "dialect": "HANA",
+    "type_config": {
+      "delimiter": ","
+    }
+  },
+  "import_settings": {
+    "import_columns": ["HOLIDAY_ID",
+    "ZNAME"]
+  },
+  "column_mappings": {
+    "HOLIDAY_ID": 1,
+    "ZNAME": 2
+  }
+},
+{
+  "target_table": "MYCONTROLTABLES_HOLIDAYS",
+  "source_data": {
+    "data_type": "CSV",
+    "file_name": "Holiday.csv",
+    "has_header": false,
+    "dialect": "HANA",
+    "type_config": {
+      "delimiter": ","
+    }
+  },
+  "import_settings": {
+    "import_columns": ["ZDATE","PROVINCE_ID","HOLIDAY_ID"]
+  },
+  "column_mappings": {
+  "ZDATE": 1,
+  "PROVINCE_ID": 2,
+  "HOLIDAY_ID": 3
+  }
+}]
+}
