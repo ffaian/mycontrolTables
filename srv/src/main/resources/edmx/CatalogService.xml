@@ -88,25 +88,25 @@
         <End Role="Holidays" Type="CatalogService.Holidays" Multiplicity="*"/>
       </Association>
       <Annotations Target="CatalogService.Holiday_MD/Holiday_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Holiday_id}"/>
+        <Annotation Term="Common.Label" String="Holiday ID"/>
       </Annotations>
       <Annotations Target="CatalogService.Holiday_MD/zName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Holiday_nm}"/>
+        <Annotation Term="Common.Label" String="Holiday Name"/>
       </Annotations>
       <Annotations Target="CatalogService.Holidays/zDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
         <Annotation Term="Common.Label" String="{Holiday_date}"/>
       </Annotations>
       <Annotations Target="CatalogService.Holidays/Province_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Province_id}"/>
+        <Annotation Term="Common.Label" String="Province ID"/>
       </Annotations>
       <Annotations Target="CatalogService.Holidays/Holiday_Id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Holiday_id}"/>
+        <Annotation Term="Common.Label" String="Holiday ID"/>
       </Annotations>
       <Annotations Target="CatalogService.Province_MD/Province_id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Province_id}"/>
+        <Annotation Term="Common.Label" String="Province ID"/>
       </Annotations>
       <Annotations Target="CatalogService.Province_MD/zName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-        <Annotation Term="Common.Label" String="{i18n>Province_nm}"/>
+        <Annotation Term="Common.Label" String="Province Name"/>
       </Annotations>
     </Schema>
   </edmx:DataServices>
